@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+
+    <title>json</title>
+  </head>
+  <body>
+    <div ng-app="carsApp" ng-controller="carsCtrl">
+<ul>
+  <!--utilisation de filter pour récupérer uniquement les voitures vertes-->
+  <!--recupération dans le tableau grace à ng-repeat=" car in cars "-->
+  <li ng-repeat="car in cars | filter:'!verte'">
+    {{car.marque + '  ' + car.couleur }}
+  </li>
+</ul>
+</div>
+<script>
+// création de la variable app et du module carsApp pour récupérer dans le tableau json
+var app = angular.module('carsApp', []);
+//grace au controller carsCtrl
+app.controller('carsCtrl', function($scope, $http) {
+  $http.get("assets/voiture.json").then(function (response) {
+      $scope.cars = response.data;
+  });
+});
+</script>
+
+  </body>
+</html>
